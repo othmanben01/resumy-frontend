@@ -12,6 +12,7 @@ import Header from "./layouts/Header";
 import Register from "./views/Register";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
+import Dashboard from "./views/dashboard/Dashboard";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
