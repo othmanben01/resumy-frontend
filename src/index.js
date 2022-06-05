@@ -12,7 +12,7 @@ import Header from "./layouts/Header";
 import Register from "./views/Register";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
-import Dashboard from "./views/dashboard/Dashboard";
+import Dashboard from "./views/Dashboard";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -25,6 +25,7 @@ root.render(
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </BrowserRouter>
     </Provider>
