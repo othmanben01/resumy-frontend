@@ -8,22 +8,38 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 // Router
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./layouts/Header";
+import AppMenu from "./layouts/AppMenu";
 import Register from "./views/Register";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
+import Admin from "./views/Admin";
 
+const TITLE = "Resumy";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <Header />
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route
+            path="/"
+            element={
+              <AppMenu type="app" title={TITLE}>
+                <App />
+              </AppMenu>
+            }
+          />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
+          <Route
+            path="/admin/*"
+            element={
+              <AppMenu type="admin" title={"Dashboard"}>
+                <Admin />
+              </AppMenu>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </Provider>
