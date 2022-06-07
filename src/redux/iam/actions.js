@@ -1,5 +1,6 @@
 import axios from "../../config/axios";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../config/config";
+import { toast } from "react-toastify";
 
 const END_POINTS = {
   REGISTER: "/iam/create/",
@@ -22,6 +23,7 @@ export const register = (payload, navigate) => async (dispatch) => {
     navigate("/login");
   } catch (err) {
     console.error(err);
+    toast.error(err.response.data.fallback_message);
   }
 };
 
@@ -39,9 +41,10 @@ export const login = (payload, navigate) => async (dispatch) => {
     axios.defaults.headers["Authorization"] =
       "Bearer " + localStorage.getItem(ACCESS_TOKEN);
 
-    navigate("/");
+    navigate("/admin/profiles");
   } catch (err) {
     console.error(err);
+    toast.error(err.response.data.fallback_message);
   }
 };
 
@@ -63,5 +66,6 @@ export const logout = (navigate) => async (dispatch) => {
     navigate("/login");
   } catch (err) {
     console.error(err);
+    toast.error(err.response.data.fallback_message);
   }
 };

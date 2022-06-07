@@ -1,6 +1,6 @@
 // Redux
 import { connect } from "react-redux";
-import { deleteProfile } from "../../../redux/profile/actions";
+import { deleteEmployment } from "../../../redux/employment/actions";
 // Routing
 import { useNavigate, useParams } from "react-router-dom";
 //MaterialUI
@@ -8,14 +8,14 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 
-const Delete = ({ deleteProfile }) => {
+const Delete = ({ deleteEmployment }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await deleteProfile(id);
-    navigate("/admin/profiles");
+    await deleteEmployment(id);
+    navigate("/admin/employments");
     // axiosInstance
     //   .delete("admin/delete/" + id)
     //   .catch(function (error) {
@@ -52,7 +52,7 @@ const Delete = ({ deleteProfile }) => {
 
 // Redux config
 const mapDispatchToProps = {
-  deleteProfile,
+  deleteEmployment,
 };
 
 export default connect(null, mapDispatchToProps)(Delete);

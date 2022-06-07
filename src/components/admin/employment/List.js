@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // Redux
 import { connect } from "react-redux";
-import { getProfiles } from "../../../redux/profile/actions";
+import { getEmployments } from "../../../redux/employment/actions";
 // Routing
 import { useNavigate } from "react-router-dom";
 //
@@ -19,14 +19,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-const List = ({ profiles, getProfiles }) => {
+const List = ({ employments, getEmployments }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => await getProfiles())();
+    (async () => await getEmployments())();
   }, []);
 
-  if (!profiles || profiles.length === 0)
+  if (!employments || employments.length === 0)
     return (
       <React.Fragment>
         <Container item xs={12} sx={{ marginBottom: "2rem" }}>
@@ -35,12 +35,12 @@ const List = ({ profiles, getProfiles }) => {
             color="primary"
             onClick={() => navigate(`create`)}
           >
-            New Profile
+            New Employment
           </Button>
         </Container>
         <Container item xs={12}>
           <Typography component="h1" variant="body1">
-            Can not find any profiles, sorry
+            Can not find any employments, sorry
           </Typography>
         </Container>
       </React.Fragment>
@@ -54,25 +54,26 @@ const List = ({ profiles, getProfiles }) => {
               <TableHead>
                 <TableRow>
                   <TableCell>ID</TableCell>
-                  <TableCell align="left">First Name</TableCell>
-                  <TableCell align="left">Last Name</TableCell>
+                  <TableCell align="left">Job</TableCell>
+                  <TableCell align="left">Employer</TableCell>
+                  <TableCell align="left">City</TableCell>
                   <TableCell align="left">Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {profiles?.map((profile) => {
+                {employments?.map((employment) => {
                   return (
-                    <TableRow key={profile.id}>
+                    <TableRow key={employment.id}>
                       <TableCell component="th" scope="row">
-                        {profile.id}
+                        {employment.id}
                       </TableCell>
-                      <TableCell align="left">{profile.first_name}</TableCell>
-                      <TableCell align="left">{profile.last_name}</TableCell>
-
+                      <TableCell align="left">{employment.job}</TableCell>
+                      <TableCell align="left">{employment.employer}</TableCell>
+                      <TableCell align="left">{employment.city}</TableCell>
                       <TableCell align="left">
                         <Link
                           color="textPrimary"
-                          onClick={() => navigate(`${profile.id}/edit`)}
+                          onClick={() => navigate(`${employment.id}/edit`)}
                         >
                           <EditIcon
                             sx={{ cursor: "pointer", mr: "1rem" }}
@@ -80,7 +81,7 @@ const List = ({ profiles, getProfiles }) => {
                         </Link>
                         <Link
                           color="textPrimary"
-                          onClick={() => navigate(`${profile.id}/delete`)}
+                          onClick={() => navigate(`${employment.id}/delete`)}
                         >
                           <DeleteForeverIcon
                             sx={{ cursor: "pointer" }}
@@ -97,7 +98,7 @@ const List = ({ profiles, getProfiles }) => {
                       color="primary"
                       onClick={() => navigate(`create`)}
                     >
-                      New Profile
+                      New Employment
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -111,10 +112,12 @@ const List = ({ profiles, getProfiles }) => {
 };
 
 // Redux config
-const mapStateToProps = (state) => ({ profiles: state.profiles.profiles });
+const mapStateToProps = (state) => ({
+  employments: state.employments.employments,
+});
 
 const mapDispatchToProps = {
-  getProfiles,
+  getEmployments,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

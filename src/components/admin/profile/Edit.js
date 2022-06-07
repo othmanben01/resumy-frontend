@@ -12,15 +12,17 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-const Create = ({ profile, getProfile, editProfile }) => {
+const Edit = ({ profile, getProfile, editProfile }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const initialFormData = {
     first_name: "",
     last_name: "",
+    description: "",
   };
 
-  const [formData, updateFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState(initialFormData);
+  const [formImage, setFormImage] = useState(null);
 
   useEffect(() => {
     (async () => await getProfile(id))();
@@ -28,33 +30,39 @@ const Create = ({ profile, getProfile, editProfile }) => {
 
   useEffect(() => {
     if (profile) {
-      const { first_name, last_name } = profile;
-      updateFormData({
+      const { first_name, last_name, description } = profile;
+      setFormData({
         ...formData,
         first_name,
         last_name,
+        description,
       });
     }
   }, [profile]);
 
-  const handleChange = (e) =>
-    updateFormData({
+  const handleChange = (e) => {
+    if ([e.target.name] == "formImage") return setFormImage(e.target.files);
+
+    setFormData({
       ...formData,
       [e.currentTarget.name]: e.currentTarget.value,
     });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
 
-    const { first_name, last_name } = formData;
+    const { first_name, last_name, description } = formData;
 
     const data = new FormData();
     data.append("first_name", first_name);
     data.append("last_name", last_name);
+    data.append("description", description);
+    formImage && data.append("image", formImage[0]);
 
     await editProfile({ id, data });
-    navigate("/admin");
+    navigate("/admin/profiles");
   };
 
   return (
@@ -65,7 +73,7 @@ const Create = ({ profile, getProfile, editProfile }) => {
           Edit Profile
         </Typography>
         <form noValidate>
-          <Grid container spacing={2} gutterBottom>
+          <Grid container spacing={2} sx={{ marginBottom: "2rem" }}>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -79,7 +87,7 @@ const Create = ({ profile, getProfile, editProfile }) => {
                 onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={12} gutterBottom sx={{ marginBottom: "2rem" }}>
+            <Grid item xs={12} sx={{ marginBottom: "2rem" }}>
               <TextField
                 variant="outlined"
                 required
@@ -94,8 +102,36 @@ const Create = ({ profile, getProfile, editProfile }) => {
                 // rows={8}
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="description"
+                label="description"
+                name="description"
+                value={formData.description}
+                autoComplete="description"
+                onChange={handleChange}
+                multiline
+                rows={4}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography component="h1" variant="body1">
+                Add Avatar:
+              </Typography>
+              <input
+                accept="image/*"
+                id="post-image"
+                onChange={handleChange}
+                name="formImage"
+                type="file"
+              />
+            </Grid>
           </Grid>
           <Button
+            sx={{ marginTop: "2rem" }}
             type="submit"
             fullWidth
             variant="contained"
@@ -118,4 +154,4 @@ const mapDispatchToProps = {
   editProfile,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Create);
+export default connect(mapStateToProps, mapDispatchToProps)(Edit);

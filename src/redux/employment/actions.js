@@ -1,23 +1,21 @@
 import axios from "../../config/axios";
 import {
-  GET_PROFILES,
-  GET_PROFILE,
-  CREATE_PROFILE,
-  EDIT_PROFILE,
-  DELETE_PROFILE,
+  GET_EMPLOYMENTS,
+  GET_EMPLOYMENT,
+  CREATE_EMPLOYMENT,
+  EDIT_EMPLOYMENT,
+  DELETE_EMPLOYMENT,
 } from "./types";
 import { toast } from "react-toastify";
 
-const END_POINTS = "admin/profiles";
+const END_POINTS = "admin/employments";
 
-export const getProfiles = () => async (dispatch) => {
+export const getEmployments = () => async (dispatch) => {
   try {
     const { data } = await axios.get(END_POINTS);
 
-    data.forEach((profile) => (profile.id = profile.user));
-
     dispatch({
-      type: GET_PROFILES,
+      type: GET_EMPLOYMENTS,
       payload: data,
     });
   } catch (err) {
@@ -26,13 +24,13 @@ export const getProfiles = () => async (dispatch) => {
   }
 };
 
-export const getProfile = (id) => async (dispatch) => {
+export const getEmployment = (id) => async (dispatch) => {
   try {
     const { data } = await axios.get(`${END_POINTS}/${id}/`);
 
-    // Get profile
+    // Get employment
     dispatch({
-      type: GET_PROFILE,
+      type: GET_EMPLOYMENT,
       payload: data,
     });
   } catch (err) {
@@ -41,15 +39,13 @@ export const getProfile = (id) => async (dispatch) => {
   }
 };
 
-export const createProfile = (payload) => async (dispatch) => {
-  const config = { headers: { "Content-Type": "multipart/form-data" } };
-
+export const createEmployment = (payload) => async (dispatch) => {
   try {
-    const { data } = await axios.post(`${END_POINTS}/`, payload, config);
+    const { data } = await axios.post(`${END_POINTS}/`, payload);
 
-    // Get profile
+    // Get employment
     dispatch({
-      type: CREATE_PROFILE,
+      type: CREATE_EMPLOYMENT,
       payload: data,
     });
   } catch (err) {
@@ -58,17 +54,13 @@ export const createProfile = (payload) => async (dispatch) => {
   }
 };
 
-export const editProfile = (payload) => async (dispatch) => {
+export const editEmployment = (payload) => async (dispatch) => {
   const { id, data } = payload;
-
-  const config = { headers: { "Content-Type": "multipart/form-data" } };
-
   try {
-    const { _data } = await axios.put(`${END_POINTS}/${id}/`, data, config);
-
-    // Get profile
+    const { _data } = await axios.put(`${END_POINTS}/${id}/`, data);
+    // Get employment
     dispatch({
-      type: EDIT_PROFILE,
+      type: EDIT_EMPLOYMENT,
       payload: _data,
     });
   } catch (err) {
@@ -77,13 +69,13 @@ export const editProfile = (payload) => async (dispatch) => {
   }
 };
 
-export const deleteProfile = (payload) => async (dispatch) => {
+export const deleteEmployment = (payload) => async (dispatch) => {
   try {
     await axios.delete(`${END_POINTS}/${payload}/`);
 
-    // Get profile
+    // Get employment
     dispatch({
-      type: DELETE_PROFILE,
+      type: DELETE_EMPLOYMENT,
     });
   } catch (err) {
     console.error(err);

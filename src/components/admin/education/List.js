@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // Redux
 import { connect } from "react-redux";
-import { getProfiles } from "../../../redux/profile/actions";
+import { getEducations } from "../../../redux/education/actions";
 // Routing
 import { useNavigate } from "react-router-dom";
 //
@@ -19,14 +19,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-const List = ({ profiles, getProfiles }) => {
+const List = ({ educations, getEducations }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => await getProfiles())();
+    (async () => await getEducations())();
   }, []);
 
-  if (!profiles || profiles.length === 0)
+  if (!educations || educations.length === 0)
     return (
       <React.Fragment>
         <Container item xs={12} sx={{ marginBottom: "2rem" }}>
@@ -35,12 +35,12 @@ const List = ({ profiles, getProfiles }) => {
             color="primary"
             onClick={() => navigate(`create`)}
           >
-            New Profile
+            New Education
           </Button>
         </Container>
         <Container item xs={12}>
           <Typography component="h1" variant="body1">
-            Can not find any profiles, sorry
+            Can not find any educations, sorry
           </Typography>
         </Container>
       </React.Fragment>
@@ -54,25 +54,27 @@ const List = ({ profiles, getProfiles }) => {
               <TableHead>
                 <TableRow>
                   <TableCell>ID</TableCell>
-                  <TableCell align="left">First Name</TableCell>
-                  <TableCell align="left">Last Name</TableCell>
+                  <TableCell align="left">School</TableCell>
+                  <TableCell align="left">Degree</TableCell>
+                  <TableCell align="left">City</TableCell>
                   <TableCell align="left">Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {profiles?.map((profile) => {
+                {educations?.map((education) => {
                   return (
-                    <TableRow key={profile.id}>
+                    <TableRow key={education.id}>
                       <TableCell component="th" scope="row">
-                        {profile.id}
+                        {education.id}
                       </TableCell>
-                      <TableCell align="left">{profile.first_name}</TableCell>
-                      <TableCell align="left">{profile.last_name}</TableCell>
+                      <TableCell align="left">{education.school}</TableCell>
+                      <TableCell align="left">{education.degree}</TableCell>
+                      <TableCell align="left">{education.city}</TableCell>
 
                       <TableCell align="left">
                         <Link
                           color="textPrimary"
-                          onClick={() => navigate(`${profile.id}/edit`)}
+                          onClick={() => navigate(`${education.id}/edit`)}
                         >
                           <EditIcon
                             sx={{ cursor: "pointer", mr: "1rem" }}
@@ -80,7 +82,7 @@ const List = ({ profiles, getProfiles }) => {
                         </Link>
                         <Link
                           color="textPrimary"
-                          onClick={() => navigate(`${profile.id}/delete`)}
+                          onClick={() => navigate(`${education.id}/delete`)}
                         >
                           <DeleteForeverIcon
                             sx={{ cursor: "pointer" }}
@@ -91,13 +93,13 @@ const List = ({ profiles, getProfiles }) => {
                   );
                 })}
                 <TableRow>
-                  <TableCell colSpan={4} align="right">
+                  <TableCell colSpan={5} align="right">
                     <Button
                       variant="contained"
                       color="primary"
                       onClick={() => navigate(`create`)}
                     >
-                      New Profile
+                      New Education
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -111,10 +113,12 @@ const List = ({ profiles, getProfiles }) => {
 };
 
 // Redux config
-const mapStateToProps = (state) => ({ profiles: state.profiles.profiles });
+const mapStateToProps = (state) => ({
+  educations: state.educations.educations,
+});
 
 const mapDispatchToProps = {
-  getProfiles,
+  getEducations,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);

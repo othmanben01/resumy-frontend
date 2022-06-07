@@ -1,23 +1,20 @@
 import axios from "../../config/axios";
 import {
-  GET_PROFILES,
-  GET_PROFILE,
-  CREATE_PROFILE,
-  EDIT_PROFILE,
-  DELETE_PROFILE,
+  GET_PROJECTS,
+  GET_PROJECT,
+  CREATE_PROJECT,
+  EDIT_PROJECT,
+  DELETE_PROJECT,
 } from "./types";
 import { toast } from "react-toastify";
 
-const END_POINTS = "admin/profiles";
+const END_POINTS = "admin/projects";
 
-export const getProfiles = () => async (dispatch) => {
+export const getProjects = () => async (dispatch) => {
   try {
     const { data } = await axios.get(END_POINTS);
-
-    data.forEach((profile) => (profile.id = profile.user));
-
     dispatch({
-      type: GET_PROFILES,
+      type: GET_PROJECTS,
       payload: data,
     });
   } catch (err) {
@@ -26,13 +23,12 @@ export const getProfiles = () => async (dispatch) => {
   }
 };
 
-export const getProfile = (id) => async (dispatch) => {
+export const getProject = (id) => async (dispatch) => {
   try {
     const { data } = await axios.get(`${END_POINTS}/${id}/`);
-
-    // Get profile
+    // Get project
     dispatch({
-      type: GET_PROFILE,
+      type: GET_PROJECT,
       payload: data,
     });
   } catch (err) {
@@ -41,15 +37,12 @@ export const getProfile = (id) => async (dispatch) => {
   }
 };
 
-export const createProfile = (payload) => async (dispatch) => {
-  const config = { headers: { "Content-Type": "multipart/form-data" } };
-
+export const createProject = (payload) => async (dispatch) => {
   try {
-    const { data } = await axios.post(`${END_POINTS}/`, payload, config);
-
-    // Get profile
+    const { data } = await axios.post(`${END_POINTS}/`, payload);
+    // Get project
     dispatch({
-      type: CREATE_PROFILE,
+      type: CREATE_PROJECT,
       payload: data,
     });
   } catch (err) {
@@ -58,17 +51,14 @@ export const createProfile = (payload) => async (dispatch) => {
   }
 };
 
-export const editProfile = (payload) => async (dispatch) => {
+export const editProject = (payload) => async (dispatch) => {
   const { id, data } = payload;
-
-  const config = { headers: { "Content-Type": "multipart/form-data" } };
-
+  console.log(data);
   try {
-    const { _data } = await axios.put(`${END_POINTS}/${id}/`, data, config);
-
-    // Get profile
+    const { _data } = await axios.put(`${END_POINTS}/${id}/`, data);
+    // Get project
     dispatch({
-      type: EDIT_PROFILE,
+      type: EDIT_PROJECT,
       payload: _data,
     });
   } catch (err) {
@@ -77,13 +67,12 @@ export const editProfile = (payload) => async (dispatch) => {
   }
 };
 
-export const deleteProfile = (payload) => async (dispatch) => {
+export const deleteProject = (payload) => async (dispatch) => {
   try {
     await axios.delete(`${END_POINTS}/${payload}/`);
-
-    // Get profile
+    // Get project
     dispatch({
-      type: DELETE_PROFILE,
+      type: DELETE_PROJECT,
     });
   } catch (err) {
     console.error(err);

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 // Redux
 import { connect } from "react-redux";
-import { getProfiles } from "../../../redux/profile/actions";
+import { getProjects } from "../../../redux/project/actions";
 // Routing
 import { useNavigate } from "react-router-dom";
 //
@@ -19,14 +19,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-const List = ({ profiles, getProfiles }) => {
+const List = ({ projects, getProjects }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => await getProfiles())();
+    (async () => await getProjects())();
   }, []);
 
-  if (!profiles || profiles.length === 0)
+  if (!projects || projects.length === 0)
     return (
       <React.Fragment>
         <Container item xs={12} sx={{ marginBottom: "2rem" }}>
@@ -35,12 +35,12 @@ const List = ({ profiles, getProfiles }) => {
             color="primary"
             onClick={() => navigate(`create`)}
           >
-            New Profile
+            New Project
           </Button>
         </Container>
         <Container item xs={12}>
           <Typography component="h1" variant="body1">
-            Can not find any profiles, sorry
+            Can not find any projects, sorry
           </Typography>
         </Container>
       </React.Fragment>
@@ -54,25 +54,25 @@ const List = ({ profiles, getProfiles }) => {
               <TableHead>
                 <TableRow>
                   <TableCell>ID</TableCell>
-                  <TableCell align="left">First Name</TableCell>
-                  <TableCell align="left">Last Name</TableCell>
+                  <TableCell align="left">Name</TableCell>
+                  <TableCell align="left">Url</TableCell>
                   <TableCell align="left">Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {profiles?.map((profile) => {
+                {projects?.map((project) => {
                   return (
-                    <TableRow key={profile.id}>
+                    <TableRow key={project.id}>
                       <TableCell component="th" scope="row">
-                        {profile.id}
+                        {project.id}
                       </TableCell>
-                      <TableCell align="left">{profile.first_name}</TableCell>
-                      <TableCell align="left">{profile.last_name}</TableCell>
+                      <TableCell align="left">{project.name}</TableCell>
+                      <TableCell align="left">{project.url}</TableCell>
 
                       <TableCell align="left">
                         <Link
                           color="textPrimary"
-                          onClick={() => navigate(`${profile.id}/edit`)}
+                          onClick={() => navigate(`${project.id}/edit`)}
                         >
                           <EditIcon
                             sx={{ cursor: "pointer", mr: "1rem" }}
@@ -80,7 +80,7 @@ const List = ({ profiles, getProfiles }) => {
                         </Link>
                         <Link
                           color="textPrimary"
-                          onClick={() => navigate(`${profile.id}/delete`)}
+                          onClick={() => navigate(`${project.id}/delete`)}
                         >
                           <DeleteForeverIcon
                             sx={{ cursor: "pointer" }}
@@ -97,7 +97,7 @@ const List = ({ profiles, getProfiles }) => {
                       color="primary"
                       onClick={() => navigate(`create`)}
                     >
-                      New Profile
+                      New Project
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -111,10 +111,12 @@ const List = ({ profiles, getProfiles }) => {
 };
 
 // Redux config
-const mapStateToProps = (state) => ({ profiles: state.profiles.profiles });
+const mapStateToProps = (state) => ({
+  projects: state.projects.projects,
+});
 
 const mapDispatchToProps = {
-  getProfiles,
+  getProjects,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(List);
