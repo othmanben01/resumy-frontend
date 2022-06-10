@@ -22,7 +22,7 @@ const Project = ({ projects, getProjects }) => {
   }, []);
 
   return (
-    projects && (
+    projects?.length > 0 && (
       <Box
         gutterBottom
         sx={{
@@ -55,7 +55,11 @@ const Project = ({ projects, getProjects }) => {
               {projects?.map((project) => (
                 <ListItem sx={{ paddingTop: "0", paddingBottom: "0" }}>
                   <ListItemText primary={project.name} />{" "}
-                  {project.url && <Link href={project.url}>Visit</Link>}
+                  {project.url && (
+                    <Link href={project.url} target="_blank">
+                      Visit
+                    </Link>
+                  )}
                 </ListItem>
               ))}
             </List>

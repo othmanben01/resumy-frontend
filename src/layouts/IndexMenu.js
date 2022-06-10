@@ -33,9 +33,6 @@ const IndexList = () => {
           <Button color="inherit" component={Link} to="/login">
             Login
           </Button>
-          <Button color="inherit" component={Link} to="/logout">
-            Logout
-          </Button>
         </Toolbar>
       </AppBar>
     </Box>

@@ -74,7 +74,7 @@ const Create = ({ createProject }) => {
                 // rows={8}
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 fullWidth
@@ -87,7 +87,7 @@ const Create = ({ createProject }) => {
                 multiline
                 rows={4}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
           <Button
             sx={{ marginTop: "2rem" }}

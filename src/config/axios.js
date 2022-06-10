@@ -36,12 +36,12 @@ authHttpClient.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    console.log(originalRequest);
-    console.log(error.response.status);
-    console.log(error.response.data.detail.code);
+    // console.log(originalRequest);
+    // console.log(error.response.status);
+    // console.log(error.response.data.detail.code);
 
     if (
-      error.response.data.detail.code === "token_not_valid" &&
+      error.code === "token_not_valid" &&
       error.response.status === 401 &&
       error.response.statusText === "Unauthorized"
     ) {
@@ -79,7 +79,7 @@ authHttpClient.interceptors.response.use(
         window.location.href = "/login/";
       }
     }
-    if (error.response.status >= 400 && error.response.status < 500) {
+    if (error.response.status === 401) {
       window.location.href = "/login/";
     }
 
@@ -96,5 +96,30 @@ const httpClient = axios.create({
     accept: "application/json",
   },
 });
+
+httpClient.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async function (error) {
+    const originalRequest = error.config;
+    if (typeof error.response === "undefined") {
+      alert(
+        "A server/network error occurred. " +
+          "Looks like CORS might be the problem. " +
+          "Sorry about this - we will get it fixed shortly."
+      );
+      return Promise.reject(error);
+    }
+
+    // console.log(originalRequest.url);
+    // if (error.response.status >= 400 && error.response.status < 500) {
+    //   window.location.href = "/not-found/";
+    // }
+
+    // specific error handling done elsewhere
+    return Promise.reject(error);
+  }
+);
 
 export { authHttpClient, httpClient };

@@ -17,13 +17,6 @@ const App = () => {
         <Employment />
         <Education />
         <Project />
-        <button
-          onClick={() =>
-            toast(
-              "Wait a minute! Wow Imane Habiba is looking at my project ! ❤️"
-            )
-          }
-        ></button>
       </Container>
     </div>
   );

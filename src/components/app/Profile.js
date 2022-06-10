@@ -4,9 +4,11 @@ import { connect } from "react-redux";
 import { getProfile } from "../../redux/index/actions";
 // Routing
 import { useParams } from "react-router-dom";
+import Markdown from "../others/Markdown";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
 
 const Profile = ({ profile, getProfile }) => {
   const { id } = useParams();
@@ -16,7 +18,7 @@ const Profile = ({ profile, getProfile }) => {
   }, []);
 
   return (
-    profile && (
+    profile?.length > 0 && (
       <Box
         gutterBottom
         sx={{
@@ -31,9 +33,10 @@ const Profile = ({ profile, getProfile }) => {
         >
           <Typography gutterBottom component="h1" variant="h5">
             Profile
-          </Typography>
+          </Typography>{" "}
+          <Divider />
           <Typography component="p" variant="body1">
-            {profile?.description}
+            <Markdown>{profile?.description}</Markdown>
           </Typography>
         </Paper>
       </Box>

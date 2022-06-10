@@ -21,7 +21,7 @@ const Employment = ({ employments, getEmployments }) => {
   console.log(employments);
 
   return (
-    employments && (
+    employments?.length > 0 && (
       <Box
         gutterBottom
         sx={{
@@ -54,7 +54,7 @@ const Employment = ({ employments, getEmployments }) => {
               ({ job, employer, city, start_date, end_date, description }) => (
                 <Accordion
                   p1={job}
-                  p2={`${employer} | ${city || ""}`}
+                  p2={`${employer}, ${city || ""}`}
                   p3={`${longDateFormat(start_date)} - ${longDateFormat(
                     end_date
                   )}`}

@@ -20,6 +20,7 @@ import Login from "./views/Login";
 import Logout from "./views/Logout";
 import Admin from "./views/Admin";
 import Test from "./views/Test";
+import NotFound from "./views/NotFound";
 
 const TITLE = "Resumy";
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -41,6 +42,7 @@ root.render(
               </AdminMenu>
             }
           />
+          <Route path="/not-found" element={<NotFound />} />
           <Route path="/test" element={<Test />} />
         </Routes>
       </BrowserRouter>

@@ -16,14 +16,14 @@ export const register = (payload, navigate) => async (dispatch) => {
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem(REFRESH_TOKEN);
     axios.defaults.headers["Authorization"] = null;
-
+    console.log(payload);
     // Register the user
     await axios.post(END_POINTS.REGISTER, payload);
 
     navigate("/login");
   } catch (err) {
-    console.error(err);
-    toast.error(err.response.data.fallback_message);
+    console.log(err);
+    toast.error("email has already been registered");
   }
 };
 
@@ -43,7 +43,7 @@ export const login = (payload, navigate) => async (dispatch) => {
 
     navigate("/admin/profiles");
   } catch (err) {
-    console.error(err);
+    console.error(err.response);
     toast.error(err.response.data.fallback_message);
   }
 };

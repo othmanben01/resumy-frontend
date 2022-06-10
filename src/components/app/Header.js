@@ -24,7 +24,7 @@ const Header = ({ profile, getProfile }) => {
         sx={{
           width: "100%",
           height: "150px",
-          backgroundColor: "aquamarine",
+          backgroundColor: "aliceblue",
           backgroundImage: `url(${profile?.background_image})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

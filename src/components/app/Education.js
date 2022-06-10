@@ -3,8 +3,10 @@ import { useEffect } from "react";
 import { connect } from "react-redux";
 import { getEducations } from "../../redux/index/actions";
 // Routing
-import { longDateFormat } from "../../helpers/date";
 import { useParams } from "react-router-dom";
+// Helpers
+import { longDateFormat } from "../../helpers/date";
+import Markdown from "../others/Markdown";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
@@ -21,7 +23,7 @@ const Education = ({ educations, getEducations }) => {
   console.log(educations);
 
   return (
-    educations && (
+    educations?.length > 0 && (
       <Box
         gutterBottom
         sx={{
@@ -54,7 +56,7 @@ const Education = ({ educations, getEducations }) => {
               ({ school, degree, city, start_date, end_date, description }) => (
                 <Accordion
                   p1={degree}
-                  p2={`${school} | ${city}`}
+                  p2={`${school},  ${city}`}
                   p3={`${longDateFormat(start_date)} - ${longDateFormat(
                     end_date
                   )}`}

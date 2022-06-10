@@ -40,12 +40,13 @@ const SignUp = ({ register }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(signUpState);
 
-    await register(signUpState, navigate);
+    const form = { ...signUpState, user_name: signUpState.email };
+
+    await register(form, navigate);
   };
 
-  const { email, user_name, password } = signUpState;
+  const { email, password } = signUpState;
 
   return (
     <ThemeProvider theme={theme}>
@@ -81,20 +82,6 @@ const SignUp = ({ register }) => {
                   onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={12} sm={12}>
-                <TextField
-                  type="text"
-                  required
-                  fullWidth
-                  value={user_name}
-                  id="user_name"
-                  label="Username"
-                  name="user_name"
-                  autoComplete="user_name"
-                  onChange={handleChange}
-                />
-              </Grid>
-
               <Grid item xs={12}>
                 <TextField
                   required

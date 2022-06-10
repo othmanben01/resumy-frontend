@@ -1,7 +1,8 @@
 import { useState } from "react";
 // Routing
-import { Link as RouterLink } from "react-router-dom";
-//
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import { ACCESS_TOKEN } from "../config/config";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -74,10 +75,17 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 const AdminMenu = ({ type, title, children }) => {
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  if (!localStorage.getItem(ACCESS_TOKEN)) navigate("/login");
+
+  const { user_id: userID } = jwt_decode(localStorage.getItem(ACCESS_TOKEN));
+  console.log(userID);
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -147,6 +155,20 @@ const AdminMenu = ({ type, title, children }) => {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Typography
+              component="h3"
+              variant="body2"
+              sx={{ marginBottom: "3rem" }}
+            >
+              <Link
+                color="inherit"
+                component={RouterLink}
+                to={`/${userID}`}
+                target="_blank"
+              >
+                Click here to go to your profile public page.
+              </Link>
+            </Typography>
             {children}
             {/* Chart */}
             {/* <Grid item xs={12} md={8} lg={9}>

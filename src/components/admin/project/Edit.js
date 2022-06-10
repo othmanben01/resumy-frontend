@@ -81,7 +81,7 @@ const Edit = ({ project, getProject, editProject }) => {
                 variant="outlined"
                 fullWidth
                 id="url"
-                label="Url"
+                label="Url: http://www.website.com"
                 name="url"
                 autoComplete="url"
                 value={formData.url}
@@ -90,7 +90,7 @@ const Edit = ({ project, getProject, editProject }) => {
                 // rows={8}
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 fullWidth
@@ -103,7 +103,7 @@ const Edit = ({ project, getProject, editProject }) => {
                 multiline
                 rows={4}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
           <Button
             sx={{ marginTop: "2rem" }}

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getProfiles } from "../../../redux/profile/actions";
 // Routing
 import { useNavigate } from "react-router-dom";
-//
+import { ACCESS_TOKEN } from "../../../config/config";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
