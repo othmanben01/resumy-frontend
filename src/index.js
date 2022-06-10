@@ -19,6 +19,7 @@ import Register from "./views/Register";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
 import Admin from "./views/Admin";
+import Test from "./views/Test";
 
 const TITLE = "Resumy";
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -40,6 +41,7 @@ root.render(
               </AdminMenu>
             }
           />
+          <Route path="/test" element={<Test />} />
         </Routes>
       </BrowserRouter>
     </Provider>
