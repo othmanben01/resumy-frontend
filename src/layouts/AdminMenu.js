@@ -1,4 +1,7 @@
-import * as React from "react";
+import { useState } from "react";
+// Routing
+import { Link as RouterLink } from "react-router-dom";
+//
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -18,7 +21,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AdminList from "../components/menu/AdminList";
+import IndexList from "./IndexMenu";
 import Copyright from "../components/others/Copyright";
+import Button from "@mui/material/Button";
 
 const drawerWidth = 240;
 
@@ -68,8 +73,8 @@ const Drawer = styled(MuiDrawer, {
 
 const mdTheme = createTheme();
 
-const AppMenu = ({ type, title, children }) => {
-  const [open, setOpen] = React.useState(true);
+const AdminMenu = ({ type, title, children }) => {
+  const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -105,6 +110,9 @@ const AppMenu = ({ type, title, children }) => {
             >
               {title}
             </Typography>
+            <Button color="inherit" component={RouterLink} to="/logout">
+              Logout
+            </Button>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -121,7 +129,9 @@ const AppMenu = ({ type, title, children }) => {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">{type === "admin" && AdminList}</List>
+          <List component="nav">
+            {type === "admin" ? AdminList : IndexList}
+          </List>
         </Drawer>
         <Box
           component="main"
@@ -137,10 +147,9 @@ const AppMenu = ({ type, title, children }) => {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {children}
-              {/* Chart */}
-              {/* <Grid item xs={12} md={8} lg={9}>
+            {children}
+            {/* Chart */}
+            {/* <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
                     p: 2,
@@ -152,26 +161,6 @@ const AppMenu = ({ type, title, children }) => {
                   <Chart />
                 </Paper>
               </Grid> */}
-              {/* Recent Deposits */}
-              {/* <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
-              </Grid> */}
-              {/* Recent Orders */}
-              {/* <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
-                </Paper>
-              </Grid> */}
-            </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
@@ -180,4 +169,4 @@ const AppMenu = ({ type, title, children }) => {
   );
 };
 
-export default AppMenu;
+export default AdminMenu;

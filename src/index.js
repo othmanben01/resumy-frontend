@@ -14,7 +14,7 @@ import "./index.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 //
-import AppMenu from "./layouts/AppMenu";
+import AdminMenu from "./layouts/AdminMenu";
 import Register from "./views/Register";
 import Login from "./views/Login";
 import Logout from "./views/Logout";
@@ -28,23 +28,16 @@ root.render(
       <ToastContainer />
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <AppMenu type="app" title={TITLE}>
-                <App />
-              </AppMenu>
-            }
-          />
+          <Route path="/:id" element={<App />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route
             path="/admin/*"
             element={
-              <AppMenu type="admin" title={"Dashboard"}>
+              <AdminMenu type="admin" title={"Dashboard"}>
                 <Admin />
-              </AppMenu>
+              </AdminMenu>
             }
           />
         </Routes>

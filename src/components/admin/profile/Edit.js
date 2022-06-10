@@ -23,6 +23,7 @@ const Edit = ({ profile, getProfile, editProfile }) => {
 
   const [formData, setFormData] = useState(initialFormData);
   const [formImage, setFormImage] = useState(null);
+  const [formBackgroundImage, setFormBackgroundImage] = useState(null);
 
   useEffect(() => {
     (async () => await getProfile(id))();
@@ -42,6 +43,8 @@ const Edit = ({ profile, getProfile, editProfile }) => {
 
   const handleChange = (e) => {
     if ([e.target.name] == "formImage") return setFormImage(e.target.files);
+    if ([e.target.name] == "formBackgroundImage")
+      return setFormBackgroundImage(e.target.files);
 
     setFormData({
       ...formData,
@@ -60,7 +63,8 @@ const Edit = ({ profile, getProfile, editProfile }) => {
     data.append("last_name", last_name);
     data.append("description", description);
     formImage && data.append("image", formImage[0]);
-
+    formBackgroundImage &&
+      data.append("background_image", formBackgroundImage[0]);
     await editProfile({ id, data });
     navigate("/admin/profiles");
   };
@@ -126,6 +130,18 @@ const Edit = ({ profile, getProfile, editProfile }) => {
                 id="post-image"
                 onChange={handleChange}
                 name="formImage"
+                type="file"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography component="h1" variant="body1">
+                Add A Background Image:
+              </Typography>
+              <input
+                accept="image/*"
+                id="post-background-image"
+                onChange={handleChange}
+                name="formBackgroundImage"
                 type="file"
               />
             </Grid>

@@ -10,3 +10,8 @@ export const formatDate = (date) => {
   // create the format you want
   return yyyy + "-" + MM + "-" + dd;
 };
+
+export const longDateFormat = (date_string) => {
+  const d = new Date(date_string);
+  return `${d.toLocaleString("default", { month: "long" })} ${d.getFullYear()}`;
+};

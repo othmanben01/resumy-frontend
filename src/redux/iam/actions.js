@@ -1,4 +1,4 @@
-import axios from "../../config/axios";
+import { authHttpClient as axios } from "../../config/axios";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../config/config";
 import { toast } from "react-toastify";
 

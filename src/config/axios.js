@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_URL, ACCESS_TOKEN, REFRESH_TOKEN } from "./config";
 
-const httpClient = axios.create({
+const authHttpClient = axios.create({
   baseURL: BASE_URL,
   timeout: 5000,
   headers: {
@@ -13,13 +13,12 @@ const httpClient = axios.create({
   },
 });
 
-httpClient.interceptors.response.use(
+authHttpClient.interceptors.response.use(
   (response) => {
     return response;
   },
   async function (error) {
     const originalRequest = error.config;
-
     if (typeof error.response === "undefined") {
       alert(
         "A server/network error occurred. " +
@@ -37,8 +36,12 @@ httpClient.interceptors.response.use(
       return Promise.reject(error);
     }
 
+    console.log(originalRequest);
+    console.log(error.response.status);
+    console.log(error.response.data.detail.code);
+
     if (
-      error.response.data.code === "token_not_valid" &&
+      error.response.data.detail.code === "token_not_valid" &&
       error.response.status === 401 &&
       error.response.statusText === "Unauthorized"
     ) {
@@ -51,18 +54,18 @@ httpClient.interceptors.response.use(
         console.log(tokenParts.exp);
 
         if (tokenParts.exp > now) {
-          return httpClient
+          return authHttpClient
             .post("/token/refresh/", { refresh: refreshToken })
             .then((response) => {
               localStorage.setItem(ACCESS_TOKEN, response.data.access);
               localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
 
-              httpClient.defaults.headers["Authorization"] =
+              authHttpClient.defaults.headers["Authorization"] =
                 "Bearer " + response.data.access;
               originalRequest.headers["Authorization"] =
                 "Bearer " + response.data.access;
 
-              return httpClient(originalRequest);
+              return authHttpClient(originalRequest);
             })
             .catch((err) => {
               console.log(err);
@@ -76,17 +79,22 @@ httpClient.interceptors.response.use(
         window.location.href = "/login/";
       }
     }
+    if (error.response.status >= 400 && error.response.status < 500) {
+      window.location.href = "/login/";
+    }
 
     // specific error handling done elsewhere
     return Promise.reject(error);
   }
 );
 
-// httpClient.interceptors.request.use(function (config) {
-//   config.headers.Authorization = localStorage.getItem(ACCESS_TOKEN)
-//     ? `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`
-//     : null;
-//   return config;
-// });
+const httpClient = axios.create({
+  baseURL: BASE_URL,
+  timeout: 5000,
+  headers: {
+    "Content-Type": "application/json",
+    accept: "application/json",
+  },
+});
 
-export default httpClient;
+export { authHttpClient, httpClient };

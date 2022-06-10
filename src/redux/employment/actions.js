@@ -1,4 +1,4 @@
-import axios from "../../config/axios";
+import { authHttpClient as axios } from "../../config/axios";
 import {
   GET_EMPLOYMENTS,
   GET_EMPLOYMENT,
