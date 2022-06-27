@@ -18,7 +18,7 @@ const PROJECT_END_POINTS = "projects";
 
 export const getProfiles = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(`${PROFILE_END_POINTS}`);
+    const { data } = await axios.get(`${PROFILE_END_POINTS}/`);
 
     dispatch({
       type: GET_PROFILES,

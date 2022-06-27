@@ -17,8 +17,10 @@ const Profile = ({ profile, getProfile }) => {
     (async () => await getProfile(id))();
   }, []);
 
+  console.log(profile);
+
   return (
-    profile?.length > 0 && (
+    profile && (
       <Box
         gutterBottom
         sx={{

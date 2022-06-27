@@ -38,7 +38,7 @@ const Create = ({ createProject }) => {
   };
 
   return (
-    <Container component="main" maxWidth="sm" sx={{ marginTop: "4rem" }}>
+    <Container component="main" sx={{ marginTop: "4rem" }}>
       <CssBaseline />
       <div>
         <Typography component="h1" variant="h5" sx={{ marginBottom: "2rem" }}>

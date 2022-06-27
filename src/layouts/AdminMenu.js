@@ -85,7 +85,7 @@ const AdminMenu = ({ type, title, children }) => {
   if (!localStorage.getItem(ACCESS_TOKEN)) navigate("/login");
 
   const { user_id: userID } = jwt_decode(localStorage.getItem(ACCESS_TOKEN));
-  console.log(userID);
+  // console.log(userID);
 
   return (
     <ThemeProvider theme={mdTheme}>

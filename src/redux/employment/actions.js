@@ -12,7 +12,7 @@ const END_POINTS = "admin/employments";
 
 export const getEmployments = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(END_POINTS);
+    const { data } = await axios.get(`${END_POINTS}/`);
 
     dispatch({
       type: GET_EMPLOYMENTS,

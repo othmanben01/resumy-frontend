@@ -12,7 +12,7 @@ const END_POINTS = "admin/profiles";
 
 export const getProfiles = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(END_POINTS);
+    const { data } = await axios.get(`${END_POINTS}/`);
 
     data.forEach((profile) => (profile.id = profile.user));
 

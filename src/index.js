@@ -30,6 +30,7 @@ root.render(
       <ToastContainer />
       <BrowserRouter>
         <Routes>
+          <Route path="/" exact element={<Login />} />
           <Route path="/:id" element={<App />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

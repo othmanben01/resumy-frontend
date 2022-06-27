@@ -38,7 +38,7 @@ const SignIn = ({ login }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(signInState);
+    // console.log(signInState);
 
     await login(signInState, navigate);
   };

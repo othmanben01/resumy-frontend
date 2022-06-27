@@ -16,7 +16,6 @@ const List = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
-  console.log(location);
 
   const items = [
     { id: 1, label: "Profile", lookup: "profiles", to: "/admin/profiles" },

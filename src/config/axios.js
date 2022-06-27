@@ -4,13 +4,13 @@ import { BASE_URL, ACCESS_TOKEN, REFRESH_TOKEN } from "./config";
 const authHttpClient = axios.create({
   baseURL: BASE_URL,
   timeout: 5000,
-  headers: {
-    Authorization: localStorage.getItem(ACCESS_TOKEN)
-      ? "Bearer " + localStorage.getItem(ACCESS_TOKEN)
-      : null,
-    "Content-Type": "application/json",
-    accept: "application/json",
-  },
+  // headers: {
+  //   Authorization: localStorage.getItem(ACCESS_TOKEN)
+  //     ? "Bearer " + localStorage.getItem(ACCESS_TOKEN)
+  //     : null,
+  //   "Content-Type": "application/json",
+  //   accept: "application/json",
+  // },
 });
 
 authHttpClient.interceptors.response.use(
@@ -51,7 +51,7 @@ authHttpClient.interceptors.response.use(
 
         // exp date in token is expressed in seconds, while now() returns milliseconds:
         const now = Math.ceil(Date.now() / 1000);
-        console.log(tokenParts.exp);
+        // console.log(tokenParts.exp);
 
         if (tokenParts.exp > now) {
           return authHttpClient
@@ -68,14 +68,14 @@ authHttpClient.interceptors.response.use(
               return authHttpClient(originalRequest);
             })
             .catch((err) => {
-              console.log(err);
+              // console.log(err);
             });
         } else {
-          console.log("Refresh token is expired", tokenParts.exp, now);
+          // console.log("Refresh token is expired", tokenParts.exp, now);
           window.location.href = "/login/";
         }
       } else {
-        console.log("Refresh token not available.");
+        // console.log("Refresh token not available.");
         window.location.href = "/login/";
       }
     }

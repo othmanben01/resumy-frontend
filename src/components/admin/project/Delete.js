@@ -34,7 +34,7 @@ const Delete = ({ deleteProject }) => {
   };
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component="main">
       <Box
         display="flex"
         justifyContent="center"

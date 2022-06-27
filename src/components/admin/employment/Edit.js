@@ -66,8 +66,6 @@ const Edit = ({ employment, getEmployment, editEmployment }) => {
   };
 
   const dateHandleChange = (name, value) => {
-    console.log(name);
-    console.log(value);
     setFormData({
       ...formData,
       [name]: value,
@@ -83,13 +81,12 @@ const Edit = ({ employment, getEmployment, editEmployment }) => {
       end_date: formData.end_date ? formatDate(formData.end_date) : null,
     };
 
-    console.log(data);
     await editEmployment({ id, data });
     navigate("/admin/employments");
   };
 
   return (
-    <Container component="main" maxWidth="sm" sx={{ marginTop: "4rem" }}>
+    <Container component="main" sx={{ marginTop: "4rem" }}>
       <CssBaseline />
       <div>
         <Typography component="h1" variant="h5" sx={{ marginBottom: "2rem" }}>

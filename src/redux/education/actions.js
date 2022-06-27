@@ -12,7 +12,7 @@ const END_POINTS = "admin/educations";
 
 export const getEducations = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(END_POINTS);
+    const { data } = await axios.get(`${END_POINTS}/`);
 
     dispatch({
       type: GET_EDUCATIONS,

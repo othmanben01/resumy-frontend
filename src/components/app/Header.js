@@ -16,7 +16,7 @@ const Header = ({ profile, getProfile }) => {
   useEffect(() => {
     (async () => await getProfile(id))();
   }, []);
-
+  console.log(profile?.image);
   return (
     profile && (
       <Box
@@ -25,7 +25,7 @@ const Header = ({ profile, getProfile }) => {
           width: "100%",
           height: "150px",
           backgroundColor: "aliceblue",
-          backgroundImage: `url(${profile?.background_image})`,
+          backgroundImage: `url(${profile?.background_image?.split("?")[0]})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
@@ -45,7 +45,7 @@ const Header = ({ profile, getProfile }) => {
         >
           <Avatar
             alt="Remy Sharp"
-            src={profile?.image || "/static/images/avatar/1.jpg"}
+            src={profile?.image.split("?")[0] || "/static/images/avatar/1.jpg"}
             sx={{
               width: "80px",
               height: "80px",
@@ -54,7 +54,11 @@ const Header = ({ profile, getProfile }) => {
           <Typography
             component="h1"
             variant="h5"
-            sx={{ marginLeft: "1rem", fontSize: "1.7rem" }}
+            sx={{
+              marginLeft: "1rem",
+              fontSize: "1.7rem",
+              backgroundColor: "#f0f8ffd9",
+            }}
           >
             {`${profile.first_name} ${profile.last_name}`}
           </Typography>

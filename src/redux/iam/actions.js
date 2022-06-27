@@ -3,7 +3,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../config/config";
 import { toast } from "react-toastify";
 
 const END_POINTS = {
-  REGISTER: "/iam/create/",
+  REGISTER: "iam/create/",
   LOGIN: "token/",
   LOGOUT: "iam/logout/blacklist/",
 };
@@ -16,19 +16,19 @@ export const register = (payload, navigate) => async (dispatch) => {
     localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem(REFRESH_TOKEN);
     axios.defaults.headers["Authorization"] = null;
-    console.log(payload);
+    // console.log(payload);
     // Register the user
     await axios.post(END_POINTS.REGISTER, payload);
 
     navigate("/login");
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     toast.error("email has already been registered");
   }
 };
 
 export const login = (payload, navigate) => async (dispatch) => {
-  console.log("Login the user on the backend");
+  // console.log("Login the user on the backend");
 
   try {
     // Login the user
@@ -49,7 +49,7 @@ export const login = (payload, navigate) => async (dispatch) => {
 };
 
 export const logout = (navigate) => async (dispatch) => {
-  console.log("Logout the user on the backend");
+  // console.log("Logout the user on the backend");
 
   try {
     // Logout the user and adding refresh token to blacklist

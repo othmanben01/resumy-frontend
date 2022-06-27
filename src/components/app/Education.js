@@ -20,8 +20,6 @@ const Education = ({ educations, getEducations }) => {
     (async () => await getEducations(id))();
   }, []);
 
-  console.log(educations);
-
   return (
     educations?.length > 0 && (
       <Box

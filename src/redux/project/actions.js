@@ -12,7 +12,7 @@ const END_POINTS = "admin/projects";
 
 export const getProjects = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(END_POINTS);
+    const { data } = await axios.get(`${END_POINTS}/`);
     dispatch({
       type: GET_PROJECTS,
       payload: data,
@@ -53,7 +53,7 @@ export const createProject = (payload) => async (dispatch) => {
 
 export const editProject = (payload) => async (dispatch) => {
   const { id, data } = payload;
-  console.log(data);
+  // console.log(data);
   try {
     const { _data } = await axios.put(`${END_POINTS}/${id}/`, data);
     // Get project

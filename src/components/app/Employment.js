@@ -18,7 +18,6 @@ const Employment = ({ employments, getEmployments }) => {
     (async () => await getEmployments(id))();
   }, []);
 
-  console.log(employments);
 
   return (
     employments?.length > 0 && (
